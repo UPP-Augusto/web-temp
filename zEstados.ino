@@ -98,10 +98,11 @@ void EstadoEspera() {
   digitalWrite(LED_BUILTIN, LOW);
   delay(200);
 
-  if (millis() - tSegAnt > 30000) {
+  if (millis() - tSegAnt > 3000) {
     segundos++;
     log(F("(EdoEspera)."), logInfo);
     tSegAnt = millis();
+    M4ObtenerDatosDHT11();
   }
 }
 

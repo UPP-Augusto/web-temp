@@ -44,6 +44,12 @@ const String numSerie = "000001";
 // https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer
 #include <ESP8266WebServer.h>
 /**************************************||**************************************/
+// Librería nativa para crear un servidor web de manera sencilla
+// https://github.com/dhrubasaha08/DHT11/tree/main
+#include <DHT11.h>                    // 2.1.0 - M4SensorDHT11
+/**************************************||**************************************/
+// Include the DHT11 library for interfacing with the sensor.
+
 
 // Definimos puerto serial para Comunicación
 #define Serie Serial
@@ -52,6 +58,8 @@ const String numSerie = "000001";
 // Definimos puerto serial para LOG
 #define SerialLog Serial
 #define SerialLog_bps 115200
+
+DHT11 dht11(2);
 
 /******************************************************************************/
 /*************************** DECLARACIÓN DE ESTADOS ***************************/
