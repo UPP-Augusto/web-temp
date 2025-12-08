@@ -28,7 +28,7 @@ const String numSerie = "000001";
 #include <WiFiManager.h>        //2.0.17- M1WiFiManager
 /**************************************||**************************************/
 // Codificador JSON :: https://github.com/bblanchon/ArduinoJson
-#include <ArduinoJson.h>        //7.1.0 - A1General
+#include <ArduinoJson.h>        //7.4.2 - A1General
 /***************************** Sistema de Archivos ****************************/
 // Librería nativa SPIFFS para el manejo de archivos de la memoria flash
 // *Importante checar sus limitaciones
