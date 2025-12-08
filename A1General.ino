@@ -46,9 +46,9 @@ void A1Informacion() {
   Serial.print(F("!Serie:"));
   Serial.println(numSerie);
   Serial.print(F("!ChipId:"));
-  Serial.println(ESP.getChipId());
+  Serial.println((uint32_t)ESP.getEfuseMac());
   Serial.print(F("!CoreVersion:"));
-  Serial.println(ESP.getCoreVersion());
+  Serial.println(ESP.getSdkVersion());
   Serial.print(F("!CpuFreqMHz:"));
   Serial.println(ESP.getCpuFreqMHz());
   Serial.print(F("!SketchSize:"));
@@ -64,7 +64,7 @@ void A1Informacion() {
 void InfoGeneral() {
   Serie.println(F("------INFO------"));
   A1Informacion();
-  Serie.print(F("!EdoActual=")?);
+  Serie.print(F("!EdoActual="));
   Serie.println(Estado);
   A2LogInfo();
   M1WiFiManagerInfo();

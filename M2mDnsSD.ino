@@ -40,7 +40,7 @@ void M2ConfmDNS() {
   log(F("(mDNS-SD)Configurando"), logInfo);
   // Creamos el dominio por defecto, este lo va a sobreescribir el modulo de
   // de configuración si existe en el archivo config.json
-  String dominio = modelo + ESP.getChipId();
+  String dominio = modelo + (uint32_t)ESP.getEfuseMac();
   dominio.toLowerCase();
   // Establece el nombre del dominio, máximo 64 bytes
   strlcpy(Datos.dominio, dominio.c_str(), 64);

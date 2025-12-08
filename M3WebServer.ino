@@ -23,7 +23,7 @@
 /******************************************************************************/
 /************** VARIABLES GLOBALES PARA LA CONEXIÓN POR DEFECTO ***************/
 /******************************************************************************/
-ESP8266WebServer webServer(80);
+WebServer webServer(80);
 File fsUploadFile;
 const char* www_username = "admin";
 const char* www_password = "admin";

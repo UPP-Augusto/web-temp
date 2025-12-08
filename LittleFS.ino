@@ -6,7 +6,7 @@ void A5ConfSpiffs(){
   // Monta el sistema de archivos
   if (!LittleFS.begin()) {
     log(F("(LittleFS)Error montando el sistema de archivos"), logError);
-    ESP.reset();
+    ESP.restart();
     return;
   }
   else
@@ -15,10 +15,12 @@ void A5ConfSpiffs(){
 
 void A5InfoSpiifs() {
   Serie.println(F("------SISTEMA ARCHIVOS------"));
-  Dir dir = LittleFS.openDir("/");
-  while (dir.next()) {
-    String fileName = dir.fileName();
-    size_t fileSize = dir.fileSize();
-    Serie.printf("!FILE:%s, SIZE:%s\n", fileName.c_str(), formatBytes(fileSize).c_str());
+  File root = LittleFS.open("/");
+  File file = root.openNextFile();
+  while(file){
+      String fileName = file.name();
+      size_t fileSize = file.size();
+      Serie.printf("!FILE:%s, SIZE:%s\n", fileName.c_str(), formatBytes(fileSize).c_str());
+      file = root.openNextFile();
   }
 }

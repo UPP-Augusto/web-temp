@@ -18,7 +18,7 @@ void A3Config() {
 
 /******************************************************************************/
 bool LeerConfig() {
-  File configFile = SPIFFS.open(archivoJSON, "r");
+  File configFile = LittleFS.open(archivoJSON, "r");
   if (!configFile) {
     log(F("(Config)Archivo no encontrado"), logError);
     return false;
@@ -59,10 +59,10 @@ bool LeerConfig() {
 /******************************************************************************/
 void guardarConfig() {
   // Borramos el archivo, de otra forma solo se concatenan los datos
-  if (SPIFFS.exists(archivoJSON))
-    SPIFFS.remove(archivoJSON);
+  if (LittleFS.exists(archivoJSON))
+    LittleFS.remove(archivoJSON);
 
-  File configFile = SPIFFS.open(archivoJSON, "w");
+  File configFile = LittleFS.open(archivoJSON, "w");
   if (!configFile) {
     log(F("(Config)Fallo abrir archivo escritura"), logError);
     return;

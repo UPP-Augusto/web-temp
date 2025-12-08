@@ -111,14 +111,14 @@ void EstadoEspera() {
 void EstadoConexionWiFi() {
   // Si no esta conectado
   if (WiFi.status() != WL_CONNECTED) {
-    String ssid = modelo + String(ESP.getChipId());
+    String ssid = modelo + String((uint32_t)ESP.getEfuseMac());
     // Iniciamos la conexion con WiFiManager, función bloqueante, Si no hay
     // nadie conectado y pasan 3 min se sale del portal de configuración
     if (!wm.autoConnect(ssid.c_str(), passwordAP.c_str())) {
       // Si no se conecto
       log(F("(EdoConexionWiFi)Se reinicia para intentar de nuevo"), logError);
       //Resetea y se intenta de nuevo
-      ESP.reset();
+      ESP.restart();
       delay(1000);
     }
   }

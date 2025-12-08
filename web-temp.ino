@@ -12,7 +12,7 @@
 /** Última revisión:   || Ultima revisión o actualización, solo la última
 /** 24/07/05 Augusto - Se ajusta el código a la nueva versión
 /******************************************************************************/
-const String modelo = "GLBOX";
+const String modelo = "ESP-2";
 const String firmware = "0.1.240705";
 const String numSerie = "000001";
 
@@ -24,25 +24,26 @@ const String numSerie = "000001";
 /**************************************||**************************************/
 // Librería con la funcionalidad principal de manejo del WiFi
 //WiFi::https://arduino-esp8266.readthedocs.io/en/3.1.2/esp8266wifi/readme.html
-#include <ESP8266WiFi.h>        //3.1.2 - M1WiFiManager
-#include <WiFiManager.h>        //2.0.17- M1WiFiManager
+#include <WiFi.h>               // M1WiFiManager
+#include <WiFiManager.h>        // M1WiFiManager
 /**************************************||**************************************/
 // Codificador JSON :: https://github.com/bblanchon/ArduinoJson
-#include <ArduinoJson.h>        //7.1.0 - A1General
+#include <ArduinoJson.h>        // A1General
 /***************************** Sistema de Archivos ****************************/
 // Librería nativa SPIFFS para el manejo de archivos de la memoria flash
 // *Importante checar sus limitaciones
 // https://arduino-esp8266.readthedocs.io/en/3.1.2/filesystem.html
-#include "LittleFS.h"                 //3.1.2 - A3Config
+#include <FS.h>
+#include <LittleFS.h>
 /**************************************||**************************************/
 // Librería nativa que permite asignar un dominio local al ESP sin necesidad de 
 // servidor DNS, usa el protocolo mDNS. Responde a consultas de descubrimiento
 // de servicios.
-#include <ESP8266mDNS.h>              //3.1.2 - A5mDNS-SD
+#include <ESPmDNS.h>
 /**************************************||**************************************/
 // Librería nativa para crear un servidor web de manera sencilla
 // https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer
-#include <ESP8266WebServer.h>
+#include <WebServer.h>
 /**************************************||**************************************/
 
 // Definimos puerto serial para Comunicación
@@ -56,6 +57,9 @@ const String numSerie = "000001";
 /******************************************************************************/
 /*************************** DECLARACIÓN DE ESTADOS ***************************/
 /******************************************************************************/
+#ifndef LED_BUILTIN
+#define LED_BUILTIN 2
+#endif
 const int estadoPrueba = -2;      // Estado usado para pruebas
 const int estadoError = -1;       // Estado principal de manejo de errores
 const int estadoSinEstado = 0;    // Usado para error en declaración de estado
@@ -82,8 +86,8 @@ void setup() {
 void loop() {
   LeerIndicaciones();
   // Si ya se activo el servicio
-  if (Estado>estadoConfigMDns)
-    MDNS.update();
+  // if (Estado>estadoConfigMDns)
+  //   MDNS.update();
   switch (Estado) {
     case estadoPrueba:
       EstadoPrueba();
