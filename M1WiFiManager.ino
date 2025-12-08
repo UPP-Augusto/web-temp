@@ -1,4 +1,3 @@
-const String passwordAccessPoint = "12345678";
 WiFiManager wiFiManager;
 
 void wiFiManagerConfiguration() {
@@ -21,14 +20,33 @@ void wiFiManagerSuccessConfiguration() {
   Serie.println(F("Reiniciaando o conectando..."));
 }
 
-void wiFiManagerConnectionWiFi() {
-
+bool wiFiManagerConnectionWiFi() {
+  wiFiManagerConfiguration();
+  if (!wiFiManager.autoConnect(accessPointNetworkName.c_str(), accessPointPassword.c_str())) {
+    log(F("(WiFiManager)No se pudo conectar a la red"), logError);
+    return false;
+  }
+  log(F("(WiFiManager)Conectado a la red"), logNoticia);
+  return true;
 }
 
 void wiFiManagerResetCredentials() {
-
+  log(F("(WiFiManager)Reestableciendo credenciales WiFi..."), logAdvertencia);
+  wiFiManager.resetSettings();
 }
 
 void  wiFiManagerInfo() {
-
+  Serie.println(F("!SSID: "));
+  Serie.println(WiFi.SSID());
+  Serie.println(F("!IP: "));
+  Serie.println(WiFi.localIP());
+  Serie.println(F("!MAC: "));
+  Serie.println(WiFi.macAddress());
+  Serie.printf("!StatusWiFi: %d\n", WiFi.status());
+  if (Datos.verbosidad >= logDebug) {
+    // Imprime información de debug
+    WiFi.printDiag(SerialLog);
+  }
+  Serie.println(F("!Señal: "));
+  Serie.println(WiFi.RSSI());
 }

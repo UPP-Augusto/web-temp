@@ -77,15 +77,21 @@ void EstadoError() {
 /******************************************************************************/
 /******************************************************************************/
 void EstadoConfiguracion() {
-  A1ConfGeneral();          //Muestra los valores predeterminados
-  A5ConfSpiffs();           //Monta el sistema de archivos
-  A2ConfLog();              //Establece valores personalizados
-  M1ConfWiFiManager();
+  A1ConfGeneral();
+  A5ConfSpiffs();
+  A2ConfLog();
   M2ConfmDNS();
   M3ConfWebServer();
-  // Al último carga la configuración guardada de todos los módulos
-  A3Config();
-  CambiarEstado(estadoConexionWiFi);
+  A3Config();    
+
+  log(F("(Estados)Intentando conexión WiFi..."), logInfo);
+  if (wiFiManagerConnectionWiFi()) {
+    CambiarEstado(estadoConexionWiFi);
+  } else {
+    log(F("(Estados)Fallo Al conectar WiFi. Reiniciando..."), logError);
+    delay(3000);
+    ESP.restart();
+  }
 }
 
 /*****************************************************************************/
@@ -109,20 +115,10 @@ void EstadoEspera() {
 /*****************************************************************************/
 /*****************************************************************************/
 void EstadoConexionWiFi() {
-  // Si no esta conectado
-  if (WiFi.status() != WL_CONNECTED) {
-    String ssid = modelo + String((uint32_t)ESP.getEfuseMac());
-    // Iniciamos la conexion con WiFiManager, función bloqueante, Si no hay
-    // nadie conectado y pasan 3 min se sale del portal de configuración
-    if (!wm.autoConnect(ssid.c_str(), passwordAP.c_str())) {
-      // Si no se conecto
-      log(F("(EdoConexionWiFi)Se reinicia para intentar de nuevo"), logError);
-      //Resetea y se intenta de nuevo
-      ESP.restart();
-      delay(1000);
-    }
-  }
-  // Si llegó aquí ya esta conectado, cambiamos de estado
+  wiFiManagerInfo();
+
+  // TODO: Inicializar otros servicios necesarios
+  
   CambiarEstado(estadoConfigMDns);
 }
 

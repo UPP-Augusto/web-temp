@@ -12,10 +12,11 @@
 /** Última revisión:   || Ultima revisión o actualización, solo la última
 /** 24/07/05 Augusto - Se ajusta el código a la nueva versión
 /******************************************************************************/
-const String modelo = "ESP-2";
+const String modelo = "SP2";
 const String firmware = "0.1.240705";
 const String numSerie = "000001";
-
+const String accessPointNetworkName = "SP2_Config";
+const String accessPointPassword = "12345678";
 /******************************************************************************/
 /******************* DECLARACIÓN DE LIBRERÍAS DEL AUTOMATA ********************/
 /******************************************************************************/
