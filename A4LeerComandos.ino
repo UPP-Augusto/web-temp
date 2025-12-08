@@ -48,7 +48,7 @@ void LeerComandos()
     case '#':
       // Modo Debug
       LogDebug();
-      M1ModoDebug();
+      // M1ModoDebug(); // Deprecated
       break;
     case 'S':
       // Guardamos la Configuración
@@ -60,7 +60,7 @@ void LeerComandos()
       break;
     case '*':
       // Borrar redes guardadas
-      M1ResetWiFiManager();
+      wiFiManagerResetCredentials();
       break;
     case 'M':
       // Muestra los comandos disponibles
@@ -96,7 +96,7 @@ void LeerInformacion() {
       MenuInformacion();
       break;
     case 'w':
-      M1WiFiManagerInfo();
+      wiFiManagerInfo();
       break;
     case '\n':
     case '\r':

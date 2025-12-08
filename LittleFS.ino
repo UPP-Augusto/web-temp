@@ -3,10 +3,9 @@
 /******************************************************************************/
 void A5ConfSpiffs(){
   log(F("(LittleFS)Configurando"), logInfo);
-  // Monta el sistema de archivos
-  if (!LittleFS.begin()) {
-    log(F("(LittleFS)Error montando el sistema de archivos"), logError);
-    ESP.restart();
+  // Monta el sistema de archivos, true = formatear si falla
+  if (!LittleFS.begin(true)) {
+    log(F("(LittleFS)Error crítico montando/formateando LittleFS"), logError);
     return;
   }
   else
