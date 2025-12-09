@@ -44,6 +44,7 @@ const String accessPointPassword = "12345678";
 // https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer
 #include <WebServer.h>
 #include <DHT.h>
+#include "Records.h"
 /**************************************||**************************************/
 
 #define Serie Serial
