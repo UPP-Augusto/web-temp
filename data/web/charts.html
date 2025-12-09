@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Monitor de Temperatura</title>
+    <!-- Estilos locales si estan disponibles, si no usara normal -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <style>
+        body { padding-top: 5rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Monitor SP2</a>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/">Inicio</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Historial de Temperatura y Humedad</h1>
+                </div>
+
+                <!-- AQUI VA LA GRAFICA -->
+                <canvas id="myChart" width="400" height="200"></canvas>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/chart.js"></script>
+    <script>
+        async function loadData() {
+            try {
+                const response = await fetch('/api/data');
+                const data = await response.text();
+                
+                // Parse CSV
+                // timestamp,temperature,humidity
+                const rows = data.split('\n').filter(row => row.trim() !== '' && !row.startsWith('timestamp')); 
+                
+                const labels = [];
+                const temps = [];
+                const hums = [];
+
+                rows.forEach(row => {
+                    const cols = row.split(',');
+                    // cols[0] = timestamp
+                    // cols[1] = temperature
+                    // cols[2] = humidity
+                    if(cols.length >= 3) {
+                        // Convertir timestamp (millis) a algo legible (ej: numero de lectura o min)
+                        const mins = Math.floor(cols[0] / 1000 / 60); 
+                        labels.push(mins + 'm'); 
+                        temps.push(parseFloat(cols[1]));
+                        hums.push(parseFloat(cols[2]));
+                    }
+                });
+
+                renderChart(labels, temps, hums);
+
+            } catch (error) {
+                console.error("Error cargando datos:", error);
+                alert("Error cargando datos del sensor. Ver consola.");
+            }
+        }
+
+        function renderChart(labels, temps, hums) {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Temperatura (°C)',
+                        data: temps,
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: false,
+                        tension: 0.1
+                    }, {
+                        label: 'Humedad (%)',
+                        data: hums,
+                        borderColor: 'rgb(54, 162, 235)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: false,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Cargar al iniciar
+        loadData();
+    </script>
+</body>
+</html>

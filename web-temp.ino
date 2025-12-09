@@ -54,6 +54,21 @@ const String accessPointPassword = "12345678";
 #define DHTPIN 4
 #define DHTTYPE DHT11
 
+// --- PROTOTIPOS (Forward Declarations) ---
+void configureDHTSensor();
+void readDHTSensor();
+void EstadoPrueba();
+void EstadoError();
+void EstadoConfiguracion();
+void EstadoConexionWiFi();
+void EstadoConfigMDns();
+void EstadoEspera();
+void CambiarEstado(int estado);
+void LeerIndicaciones();
+void A1Informacion();
+String formatBytes(size_t bytes);
+// ------------------------------------------
+
 /******************************************************************************/
 /*************************** DECLARACIÓN DE ESTADOS ***************************/
 /******************************************************************************/

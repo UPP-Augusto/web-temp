@@ -1,4 +1,5 @@
 #include "Records.h"
+void dataBaseSaveData(Records record);
 
 DHT dht(DHTPIN, DHTTYPE);
 

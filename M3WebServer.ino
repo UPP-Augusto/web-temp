@@ -21,12 +21,116 @@
 // No se usan terminales
 
 /******************************************************************************/
-/************** VARIABLES GLOBALES PARA LA CONEXIÓN POR DEFECTO ***************/
 /******************************************************************************/
+// Forward Declarations
+void SendDataDHT();
+bool M3UsuarioAutenticado();
+void M3Login();
+bool M3LeerArchivoWeb(String path);
+void M3RecursoNoEncontrado();
+String getContentType(String filename);
+// --------------------
+
 WebServer webServer(80);
 File fsUploadFile;
 const char* www_username = "admin";
 const char* www_password = "admin";
+const char CHARTS_HTML[] PROGMEM = R"rawliteral(
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Monitor de Temperatura</title>
+    <!-- Usamos CDN para estilos para simplificar -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding-top: 5rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Monitor SP2</a>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/">Inicio</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Historial de Temperatura y Humedad</h1>
+                </div>
+                <canvas id="myChart" width="400" height="200"></canvas>
+            </main>
+        </div>
+    </div>
+
+    <!-- Chart.js desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        async function loadData() {
+            try {
+                const response = await fetch('/api/data');
+                const data = await response.text();
+                // timestamp,temperature,humidity - Filtramos lineas vacias
+                const rows = data.split('\n').filter(row => row.trim() !== '' && !row.startsWith('timestamp')); 
+                
+                const labels = [];
+                const temps = [];
+                const hums = [];
+
+                rows.forEach(row => {
+                    const cols = row.split(',');
+                    if(cols.length >= 3) {
+                        // Math.floor(millis / 1000 / 60) = minutos
+                        const mins = Math.floor(cols[0] / 1000 / 60); 
+                        labels.push(mins + 'm'); 
+                        temps.push(parseFloat(cols[1]));
+                        hums.push(parseFloat(cols[2]));
+                    }
+                });
+                renderChart(labels, temps, hums);
+            } catch (error) {
+                console.error("Error cargando datos:", error);
+                alert("Error obteniendo datos.");
+            }
+        }
+
+        function renderChart(labels, temps, hums) {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Temperatura (°C)',
+                        data: temps,
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: false,
+                        tension: 0.1
+                    }, {
+                        label: 'Humedad (%)',
+                        data: hums,
+                        borderColor: 'rgb(54, 162, 235)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: false,
+                        tension: 0.1
+                    }]
+                },
+                options: { responsive: true, scales: { y: { beginAtZero: true } } }
+            });
+        }
+        loadData();
+    </script>
+</body>
+</html>
+)rawliteral";
+
 
 /******************************************************************************/
 /*************** CONFIGURACIÓN INICIAL DE TERMINALES Y VARIABLES **************/
@@ -52,6 +156,9 @@ void M3ConfWebServer() {
   log(F("(WebServer)Configurando"), logNoticia);
 
   // Rutas con autorización básica
+  webServer.on("/monitor", HTTP_GET, []() {
+      webServer.send_P(200, "text/html", CHARTS_HTML);
+  });
   webServer.on("/api/data", HTTP_GET, SendDataDHT);
   webServer.on("/", []() {
     if (!M3UsuarioAutenticado())
@@ -215,17 +322,7 @@ void M3CrearArchivoWeb() {
 /******************************************************************************/
 /****************************** HELPER FUNCTIONS ******************************/
 /******************************************************************************/
-String formatBytes(size_t bytes) {
-  if (bytes < 1024) {
-    return String(bytes) + "B";
-  } else if (bytes < (1024 * 1024)) {
-    return String(bytes / 1024.0) + "KB";
-  } else if (bytes < (1024 * 1024 * 1024)) {
-    return String(bytes / 1024.0 / 1024.0) + "MB";
-  } else {
-    return String(bytes / 1024.0 / 1024.0 / 1024.0) + "GB";
-  }
-}
+
 
 String getContentType(String filename) {
   if (webServer.hasArg("download")) {
