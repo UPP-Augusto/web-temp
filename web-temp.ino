@@ -9,8 +9,6 @@
 /** Version 0.0.240705 || Esta es la versión actual, se usa la semántica para
 /**                       los dos primero números y en el último la fecha AAMMDD
 /**
-/** Última revisión:   || Ultima revisión o actualización, solo la última
-/** 24/07/05 Augusto - Se ajusta el código a la nueva versión
 /******************************************************************************/
 const String modelo = "SP2";
 const String firmware = "0.1.240705";
@@ -45,15 +43,15 @@ const String accessPointPassword = "12345678";
 // Librería nativa para crear un servidor web de manera sencilla
 // https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer
 #include <WebServer.h>
+#include <DHT.h>
 /**************************************||**************************************/
 
-// Definimos puerto serial para Comunicación
 #define Serie Serial
 #define Serial_bps 115200
-
-// Definimos puerto serial para LOG
 #define SerialLog Serial
 #define SerialLog_bps 115200
+#define DHTPIN 4
+#define DHTTYPE DHT11
 
 /******************************************************************************/
 /*************************** DECLARACIÓN DE ESTADOS ***************************/
@@ -77,6 +75,7 @@ void setup() {
   Serie.begin(Serial_bps);  
   /****SI ES DIFERENTE EL PUERTO DEL LOG***/
   /* Serial_bps.begin(SerialLog_bps);*/
+  configureDHTSensor();
   A1Informacion();
   CambiarEstado(estadoConfiguracion);
 }
@@ -85,6 +84,7 @@ void setup() {
 /*************** ESTRUCTURA PRINCIPAL DE LA MÁQUINA DE ESTADOS ****************/
 /******************************************************************************/
 void loop() {
+  readDHTSensor();
   LeerIndicaciones();
   // Si ya se activo el servicio
   // if (Estado>estadoConfigMDns)
