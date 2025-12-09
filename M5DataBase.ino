@@ -6,7 +6,7 @@ bool isFileExist() {
     return LittleFS.exists(dataBasePath);
 }
 
-void createFile() {
+void dataBaseCreateFile() {
     File dataBaseFile = LittleFS.open(dataBasePath, "w");
     if (dataBaseFile) {
         dataBaseFile.println("timestamp,temperature,humidity");
@@ -15,7 +15,7 @@ void createFile() {
 }
 
 void dataBaseSaveData(Records record) {
-    if (!isFileExist()) createFile();
+    if (!isFileExist()) dataBaseCreateFile();
     File dataBaseFile = LittleFS.open(dataBasePath, "a");
     
     if (dataBaseFile) {
@@ -36,4 +36,9 @@ void dataBaseReadData() {
         }
         dataBaseFile.close();
     }
+}
+
+void dataBaseReset() {
+    dataBaseCreateFile();
+    log(F("(DataBase) Historial vaciado"), logInfo);
 }

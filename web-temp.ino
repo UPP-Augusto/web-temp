@@ -67,6 +67,7 @@ void CambiarEstado(int estado);
 void LeerIndicaciones();
 void A1Informacion();
 String formatBytes(size_t bytes);
+void dataBaseReset();
 // ------------------------------------------
 
 /******************************************************************************/

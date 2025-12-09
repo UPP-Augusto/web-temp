@@ -30,7 +30,6 @@ bool M3LeerArchivoWeb(String path);
 void M3RecursoNoEncontrado();
 String getContentType(String filename);
 // --------------------
-
 WebServer webServer(80);
 File fsUploadFile;
 const char* www_username = "admin";
@@ -63,6 +62,7 @@ const char CHARTS_HTML[] PROGMEM = R"rawliteral(
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Historial de Temperatura y Humedad</h1>
+                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="clearData()">Borrar Historial</button>
                 </div>
                 <canvas id="myChart" width="400" height="200"></canvas>
             </main>
@@ -74,7 +74,7 @@ const char CHARTS_HTML[] PROGMEM = R"rawliteral(
     <script>
         async function loadData() {
             try {
-                const response = await fetch('/api/data');
+                const response = await fetch('/api/data?nocache=' + new Date().getTime());
                 const data = await response.text();
                 // timestamp,temperature,humidity - Filtramos lineas vacias
                 const rows = data.split('\n').filter(row => row.trim() !== '' && !row.startsWith('timestamp')); 
@@ -125,16 +125,28 @@ const char CHARTS_HTML[] PROGMEM = R"rawliteral(
                 options: { responsive: true, scales: { y: { beginAtZero: true } } }
             });
         }
+
+        async function clearData() {
+            if(confirm('¿Seguro que deseas borrar el historial?')) {
+                await fetch('/api/clear');
+                location.reload();
+            }
+        }
         loadData();
     </script>
 </body>
 </html>
 )rawliteral";
 
-
 /******************************************************************************/
 /*************** CONFIGURACIÓN INICIAL DE TERMINALES Y VARIABLES **************/
 /******************************************************************************/
+void M3BorrarDatos() {
+    if (!M3UsuarioAutenticado()) return;
+    dataBaseReset();
+    webServer.send(200, "text/plain", "Datos borrados");
+}
+
 void SendDataDHT() {
   log(F("(WebServer) Enviando datos al sensor..."), logInfo);
   if (!LittleFS.exists("/sensor_log.csv")) {
@@ -159,6 +171,7 @@ void M3ConfWebServer() {
   webServer.on("/monitor", HTTP_GET, []() {
       webServer.send_P(200, "text/html", CHARTS_HTML);
   });
+  webServer.on("/api/clear", HTTP_GET, M3BorrarDatos);
   webServer.on("/api/data", HTTP_GET, SendDataDHT);
   webServer.on("/", []() {
     if (!M3UsuarioAutenticado())
@@ -414,4 +427,3 @@ void M3Login() {
     webServer.send(200, "text/html", content);
   }
 }
-
