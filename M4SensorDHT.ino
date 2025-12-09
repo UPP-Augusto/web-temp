@@ -3,7 +3,7 @@ void dataBaseSaveData(Records record);
 
 DHT dht(DHTPIN, DHTTYPE);
 
-const long DHT_READ_INTERVAL = 10000;
+const long DHT_READ_INTERVAL = 100;
 unsigned long lastDHTReadTime = 0;
 float humidity = 0;
 float temperature = 0;
