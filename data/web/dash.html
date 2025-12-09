@@ -2,261 +2,253 @@
 <html lang="es">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Información del dispositivo">
-    <meta name="author" content="Augusto Valdez">
-    <meta name="generator" content="Plataforma Gladiador">
-    <title>Dashboard Template · Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+      .chart-card { padding: 1rem; background: #fff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 1rem; }
+      .header-container { text-align: center; padding: 2rem 0; border-bottom: 1px solid #dee2e6; }
+      .header-logos { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 1rem; }
+      .header-logos img { max-width: 80px; height: auto; display:block; }
+      .header-text { text-align: center; }
+      .header-text .fw-bold { margin: 0; }
+      .header-text .h5 { margin: .25rem 0 0 0; }
+      .header-text .small { display: block; color: #6c757d; }
     </style>
-    <!-- Custom styles for this template -->
-    <link href="/css/dashboard.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Plataforma Gladiador</a>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" href="/login?DISCONNECT=YES\">Cerrar Sesión</a>
-    </li>
-  </ul>
-</nav>
-
-<div class="container-fluid">
-  <div class="row">
-    <!-- Menu de navegación Lateral-->
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">
-              <span data-feather="home"></span>
-              Dashboard <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file"></span>
-              Orders
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart"></span>
-              Products
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="users"></span>
-              Customers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="bar-chart-2"></span>
-              Reports
-            </a>
-          </li>
-        </ul>
-
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Saved reports</span>
-          <a class="d-flex align-items-center text-muted" href="#">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Current month
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Last quarter
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Social engagement
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+    <div class="container-fluid">
+      <div class="row">
+        <main role="main" class="col-12">
+          <!-- Header Section -->
+          <div class="header-container">
+            <div class="header-logos">
+              <img src="data\web\img\LogoCarrera.png" alt="Logo UPP">
+              <img src="data\web\img\LogoCarrera.png" alt="Logo Software">
+            </div>
+            <div class="header-text">
+              <div class="fw-bold h3 text-primary">UNIVERSIDAD POLITÉCNICA DE PACHUCA</div>
+              <div class="h5 mt-1">Ingeniería en Software</div>
+              <div class="small text-muted">Arquitectura de Computadoras</div>
+              <div class="small text-muted">Grupo SFTW_06_01</div>
+            </div>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            This week
-          </button>
-        </div>
-      </div>
 
-      <h2>Section title</h2>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Header</th>
-              <th>Header</th>
-              <th>Header</th>
-              <th>Header</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>Lorem</td>
-              <td>ipsum</td>
-              <td>dolor</td>
-              <td>sit</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>amet</td>
-              <td>consectetur</td>
-              <td>adipiscing</td>
-              <td>elit</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>Integer</td>
-              <td>nec</td>
-              <td>odio</td>
-              <td>Praesent</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>libero</td>
-              <td>Sed</td>
-              <td>cursus</td>
-              <td>ante</td>
-            </tr>
-            <tr>
-              <td>1,004</td>
-              <td>dapibus</td>
-              <td>diam</td>
-              <td>Sed</td>
-              <td>nisi</td>
-            </tr>
-            <tr>
-              <td>1,005</td>
-              <td>Nulla</td>
-              <td>quis</td>
-              <td>sem</td>
-              <td>at</td>
-            </tr>
-            <tr>
-              <td>1,006</td>
-              <td>nibh</td>
-              <td>elementum</td>
-              <td>imperdiet</td>
-              <td>Duis</td>
-            </tr>
-            <tr>
-              <td>1,007</td>
-              <td>sagittis</td>
-              <td>ipsum</td>
-              <td>Praesent</td>
-              <td>mauris</td>
-            </tr>
-            <tr>
-              <td>1,008</td>
-              <td>Fusce</td>
-              <td>nec</td>
-              <td>tellus</td>
-              <td>sed</td>
-            </tr>
-            <tr>
-              <td>1,009</td>
-              <td>augue</td>
-              <td>semper</td>
-              <td>porta</td>
-              <td>Mauris</td>
-            </tr>
-            <tr>
-              <td>1,010</td>
-              <td>massa</td>
-              <td>Vestibulum</td>
-              <td>lacinia</td>
-              <td>arcu</td>
-            </tr>
-            <tr>
-              <td>1,011</td>
-              <td>eget</td>
-              <td>nulla</td>
-              <td>Class</td>
-              <td>aptent</td>
-            </tr>
-            <tr>
-              <td>1,012</td>
-              <td>taciti</td>
-              <td>sociosqu</td>
-              <td>ad</td>
-              <td>litora</td>
-            </tr>
-            <tr>
-              <td>1,013</td>
-              <td>torquent</td>
-              <td>per</td>
-              <td>conubia</td>
-              <td>nostra</td>
-            </tr>
-            <tr>
-              <td>1,014</td>
-              <td>per</td>
-              <td>inceptos</td>
-              <td>himenaeos</td>
-              <td>Curabitur</td>
-            </tr>
-            <tr>
-              <td>1,015</td>
-              <td>sodales</td>
-              <td>ligula</td>
-              <td>in</td>
-              <td>libero</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </main>
+          <!-- Dashboard Title -->
+          <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Dashboard</h1>
+          </div>
+
+          <!-- Charts and Last Reading -->
+<div class="row mt-4">
+  <div class="col-12">
+    <!-- Menú de botones para seleccionar qué mostrar -->
+    <div class="btn-group mb-3" role="group" aria-label="Filtros de gráficos">
+      <button type="button" class="btn btn-primary active" id="btnAmbas">
+        <i class="bi bi-graph-up"></i> Temperatura y Humedad
+      </button>
+      <button type="button" class="btn btn-outline-primary" id="btnTemperatura">
+        <i class="bi bi-thermometer-half"></i> Solo Temperatura
+      </button>
+      <button type="button" class="btn btn-outline-primary" id="btnHumedad">
+        <i class="bi bi-droplet"></i> Solo Humedad
+      </button>
+    </div>
   </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script>
-  window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')
-</script>
-<script src="/js/jquery-3.4.1.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-<script src="/js/dashboard.js"></script>
+    <!-- Contenedor para los gráficos (inicialmente muestra ambos) -->
+    <div class="row" id="graficosContainer">
+
+    <!-- Ambas métricas -->
+    <div class="col-md-8" id="graficoAmbas">
+      <div class="chart-card">
+        <h5><i class="bi bi-graph-up"></i> Temperatura y Humedad</h5>
+        <canvas id="mainChart" height="120"></canvas>
+      </div>
+    </div>
+
+    <!-- Solo temperatura (oculto inicialmente) -->
+    <div class="col-md-8 d-none" id="graficoTemperatura">
+      <div class="chart-card">
+        <h5><i class="bi bi-thermometer-half"></i> Temperatura</h5>
+        <canvas id="tempChart" height="120"></canvas>
+      </div>
+    </div>
+    
+    <!-- Solo humedad (oculto inicialmente) -->
+    <div class="col-md-8 d-none" id="graficoHumedad">
+      <div class="chart-card">
+        <h5><i class="bi bi-droplet"></i> Humedad</h5>
+        <canvas id="humChart" height="120"></canvas>
+      </div>
+    </div>
+    
+    <!-- Última lectura (siempre visible) -->
+    <div class="col-md-4">
+      <div class="chart-card">
+        <h5><i class="bi bi-clock-history"></i> Última lectura</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <i class="bi bi-thermometer-half text-danger"></i> Temperatura: 
+            <strong id="lastTemp" class="float-end">--</strong> °C
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-droplet text-primary"></i> Humedad: 
+            <strong id="lastHum" class="float-end">--</strong> %
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-clock text-secondary"></i> Hora: 
+            <strong id="lastTime" class="float-end">--</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+          <!-- Data Table -->
+          <h2>Datos recientes (tabla)</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm" id="dataTable">
+              <thead>
+                <tr><th>#</th><th>Hora</th><th>Temp (°C)</th><th>Hum (%)</th><th>RPM</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      const MAX_POINTS = 30;
+
+      // Shared arrays for main chart
+      const labels = [];
+      const tempData = [];
+      const humData = [];
+
+      // Arrays for single-metric charts
+      const tempOnlyLabels = [];
+      const tempOnlyData = [];
+      const humOnlyLabels = [];
+      const humOnlyData = [];
+
+      // Main chart
+      const ctx = document.getElementById('mainChart').getContext('2d');
+      const mainChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            { label: 'Temperatura (°C)', data: tempData, borderColor: 'rgb(255,99,132)', backgroundColor: 'rgba(255,99,132,0.05)', tension: 0.2 },
+            { label: 'Humedad (%)', data: humData, borderColor: 'rgb(54,162,235)', backgroundColor: 'rgba(54,162,235,0.05)', tension: 0.2 }
+          ]
+        },
+        options: { responsive: true, animation: false, scales: { y: { beginAtZero: false } } }
+      });
+
+      // Temp-only chart
+      const tempCtx = document.getElementById('tempChart').getContext('2d');
+      const tempChart = new Chart(tempCtx, {
+        type: 'line',
+        data: { labels: tempOnlyLabels, datasets: [{ label: 'Temperatura (°C)', data: tempOnlyData, borderColor: 'rgb(255,99,132)', backgroundColor: 'rgba(255,99,132,0.05)', tension: 0.2 }] },
+        options: { responsive: true, animation: false, scales: { y: { beginAtZero: false } } }
+      });
+
+      // Humidity-only chart
+      const humCtx = document.getElementById('humChart').getContext('2d');
+      const humChart = new Chart(humCtx, {
+        type: 'line',
+        data: { labels: humOnlyLabels, datasets: [{ label: 'Humedad (%)', data: humOnlyData, borderColor: 'rgb(54,162,235)', backgroundColor: 'rgba(54,162,235,0.05)', tension: 0.2 }] },
+        options: { responsive: true, animation: false, scales: { y: { beginAtZero: false } } }
+      });
+
+      function pushPoint(timeLabel, temp, hum, rpm) {
+        // main arrays
+        labels.push(timeLabel);
+        tempData.push(temp);
+        humData.push(hum);
+        if (labels.length > MAX_POINTS) { labels.shift(); tempData.shift(); humData.shift(); }
+
+        // temp-only
+        tempOnlyLabels.push(timeLabel);
+        tempOnlyData.push(temp);
+        if (tempOnlyLabels.length > MAX_POINTS) { tempOnlyLabels.shift(); tempOnlyData.shift(); }
+
+        // hum-only
+        humOnlyLabels.push(timeLabel);
+        humOnlyData.push(hum);
+        if (humOnlyLabels.length > MAX_POINTS) { humOnlyLabels.shift(); humOnlyData.shift(); }
+
+        // update charts
+        mainChart.update();
+        tempChart.update();
+        humChart.update();
+
+        // update UI
+        document.getElementById('lastTemp').textContent = temp.toFixed(2);
+        document.getElementById('lastHum').textContent = hum.toFixed(1);
+        document.getElementById('lastTime').textContent = timeLabel;
+
+        const tbody = document.querySelector('#dataTable tbody');
+        const row = document.createElement('tr');
+        row.innerHTML = '<td>' + (tbody.children.length+1) + '</td><td>' + timeLabel + '</td><td>' + temp.toFixed(2) + '</td><td>' + hum.toFixed(1) + '</td><td>' + (rpm||0) + '</td>';
+        tbody.insertBefore(row, tbody.firstChild);
+        while (tbody.children.length > MAX_POINTS) tbody.removeChild(tbody.lastChild);
+      }
+
+      async function fetchDataAndUpdate() {
+        try {
+          const resp = await fetch('/api/data', { credentials: 'same-origin' });
+          if (!resp.ok) return;
+          const json = await resp.json();
+          const temp = parseFloat(json.temp) || 0;
+          const hum = parseFloat(json.hum) || 0;
+          const rpm = parseInt(json.rpm) || 0;
+          const now = new Date();
+          pushPoint(now.toLocaleTimeString(), temp, hum, rpm);
+        } catch (e) {
+          console.warn('Error fetch /api/data', e);
+        }
+      }
+
+      // Button handlers: switch visible grafico and active button style
+      function showGrafico(mode) {
+        const grafAmbas = document.getElementById('graficoAmbas');
+        const grafTemp = document.getElementById('graficoTemperatura');
+        const grafHum = document.getElementById('graficoHumedad');
+        const btnA = document.getElementById('btnAmbas');
+        const btnT = document.getElementById('btnTemperatura');
+        const btnH = document.getElementById('btnHumedad');
+
+        // reset visibility
+        grafAmbas.classList.toggle('d-none', mode !== 'ambas');
+        grafTemp.classList.toggle('d-none', mode !== 'temp');
+        grafHum.classList.toggle('d-none', mode !== 'hum');
+
+        // button styles
+        if (mode === 'ambas') { btnA.classList.add('btn-primary'); btnA.classList.remove('btn-outline-primary'); btnA.classList.add('active'); } else { btnA.classList.remove('btn-primary'); btnA.classList.add('btn-outline-primary'); btnA.classList.remove('active'); }
+        if (mode === 'temp')  { btnT.classList.add('btn-primary'); btnT.classList.remove('btn-outline-primary'); btnT.classList.add('active'); } else { btnT.classList.remove('btn-primary'); btnT.classList.add('btn-outline-primary'); btnT.classList.remove('active'); }
+        if (mode === 'hum')   { btnH.classList.add('btn-primary'); btnH.classList.remove('btn-outline-primary'); btnH.classList.add('active'); } else { btnH.classList.remove('btn-primary'); btnH.classList.add('btn-outline-primary'); btnH.classList.remove('active'); }
+
+        // ensure charts resize correctly after show
+        setTimeout(() => { mainChart.resize(); tempChart.resize(); humChart.resize(); }, 50);
+      }
+
+      document.getElementById('btnAmbas').addEventListener('click', () => showGrafico('ambas'));
+      document.getElementById('btnTemperatura').addEventListener('click', () => showGrafico('temp'));
+      document.getElementById('btnHumedad').addEventListener('click', () => showGrafico('hum'));
+
+      document.addEventListener('DOMContentLoaded', () => {
+        fetchDataAndUpdate();
+        setInterval(fetchDataAndUpdate, 3000);
+      });
+    </script>
+  </body>
 </html>
