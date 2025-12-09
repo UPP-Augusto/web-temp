@@ -31,11 +31,28 @@ const char* www_password = "admin";
 /******************************************************************************/
 /*************** CONFIGURACIÓN INICIAL DE TERMINALES Y VARIABLES **************/
 /******************************************************************************/
+void SendDataDHT() {
+  log(F("(WebServer) Enviando datos al sensor..."), logInfo);
+  if (!LittleFS.exists("/sensor_log.csv")) {
+    webServer.send(404, "text/plain", "No data available");
+    return;
+  }
+
+  File dataBaseFile = LittleFS.open("/sensor_log.csv", "r");
+  if (!dataBaseFile) {
+    webServer.send(500, "text/plain", "Error opening file");
+    return;
+  }
+  webServer.streamFile(dataBaseFile, "text/csv");
+  dataBaseFile.close();
+}
+
 void M3ConfWebServer() {
   // Configuramos los datos de nuestra red WiFi
   log(F("(WebServer)Configurando"), logNoticia);
 
   // Rutas con autorización básica
+  webServer.on("/api/data", HTTP_GET, SendDataDHT);
   webServer.on("/", []() {
     if (!M3UsuarioAutenticado())
       return;
@@ -300,3 +317,4 @@ void M3Login() {
     webServer.send(200, "text/html", content);
   }
 }
+
