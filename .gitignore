@@ -1,0 +1,31 @@
+﻿# SOLO subir MIS archivos de bases de datos
+# Ignorar TODO lo demás
+
+# Excepciones (lo que SÍ quiero subir)
+!.gitignore
+!/arduino/
+!/backend/
+arduino/*
+backend/*
+
+# IGNORAR archivos de compañeros
+A1General.ino
+A2Log.ino
+A3Config.ino
+A4LeerComandos.ino
+A4LeerMenu.ino
+LittleFS.ino
+M1WiFiManager.ino
+M2mDnsSD.ino
+M3WebServer.ino
+web-temp.ino
+zEstados.ino
+
+# IGNORAR carpetas de compañeros
+/data/
+/web/
+
+# IGNORAR archivos temporales
+*.tmp
+*.log
+*.bak
